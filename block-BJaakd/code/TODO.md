@@ -3,10 +3,10 @@
 ```js
 let promise = new Promise((resolve,reject)=>{
     setTimeout(()=>{
-       resolve(console.log)
+       resolve(`Promise Resolved!`)
     },1000)
-}).then(cl =>{
-    cl(`Promise resolved`)
+}).then(val =>{
+    console.log(val);
 });
 ```
 
@@ -15,8 +15,8 @@ let promise = new Promise((resolve,reject)=>{
 ```js
 // Your code
 let rejPromise = new Promise((resolve,reject)=>{
-    reject(console.log)
-}).catch(cl => cl(`Rejected Promise!`))
+    reject(`Rejected Promise!`)
+}).catch(val => console.log(val));
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
@@ -169,13 +169,15 @@ first.then((res)=> {
 let first = new Promise((resolve,reject)=>{
     resolve(`John`)
 }).then((res)=> {
-    return `Arya`;
+    return Promise.resolve(`Arya`);
     })
 .then((res)=> {
     console.log(res);
-    setTimeout(()=> {return "Bran"},2000)
+    return new Promise((reso)=>{
+               setTimeout(()=> {reso("Bran")},2000) 
     })
-    .then((res)=> {
+})
+       .then((res)=> {
     console.log(res);
     })
 ```
